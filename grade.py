@@ -43,21 +43,23 @@ def grade(reference_answer_file, team_answer_file, test_file):
             incorrect_answers.append((answer, correct_answer, test_text))
 
     score = len(correct_answers) - len(incorrect_answers)
-    print(f"Final score {score}/{max_score}!")
-    print(f"Correct answers: {len(correct_answers)}!")
-    print(f"Incorrect answers: {len(incorrect_answers)}!")
-    print(f"Blank answers: {len(blank_answers)}!")
+    print("Final score {}/{}!".format(score, max_score))
+    print("Correct answers: {}!".format(len(correct_answers)))
+    print("Incorrect answers: {}!".format(len(incorrect_answers)))
+    print("Blank answers: {}!".format(len(blank_answers)))
 
     print("Examples of correct answers from team:")
     for answer, correct_answer, text in random.sample(correct_answers, 5):
-        print(f"({languages[answer]}) {text}")
+        print("({}) {}".format(languages[answer], text))
         print()
 
     print("Examples of incorrect answers from team:")
     for answer, correct_answer, text in random.sample(incorrect_answers, 5):
-        print(f"(team answer: {languages[answer]}, correct answer: {languages[correct_answer]}) {text}")
-        print()
-
+        try:
+            print("(team answer: {}, correct answer: {}) {}".format(languages[answer], languages[correct_answer], text))
+            print()
+        except KeyError:
+            print("team answer: {} is not a recognised language code".format(answer))
 
 
 if __name__ == "__main__":
